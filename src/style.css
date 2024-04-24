@@ -1,0 +1,5 @@
+a {
+  color: var(--ctp-blue);
+}
+
+:where(#app) > * { margin: 1em; }

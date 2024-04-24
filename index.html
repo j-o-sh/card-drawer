@@ -5,8 +5,9 @@
 
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg">
-    <link rel="stylesheet" href="./node_modules/catppuccin-beautify/style.css">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./node_modules/catppuccin-beautify/colors.css">
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="./src/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script 
       type="module" 
@@ -17,35 +18,20 @@
   <body>
     <div id="app"></div>
 
-    <header>
-      <h1>Card Shuffler</h1>
-      <p>
-        Create a random stack of cards, shuffle it and draw from the deck. 
-        Simple ✌️ 
-      </p>
-    </header>
-
-    <main class="card-deck">
-      <section id="new" class="card">
-        <form>
-          <ul>
-            <li><input name="cardname" value="Harry"></li>
-            <li><input name="cardname" value="Hermine"></li>
-            <li><input name="cardname" value="Ron"></li>
-
-            <li><input name="cardname" autofocus></li>
-          </ul>
-          <input type="submit">
-          <input type="reset">
-        </form>
-      </section>
-    </main>
-
-    <aside><nav>
-      <a href="#new">Start from scratch</a>
-      <a href="#edit">Edit the deck</a>
-      <a href="#shuffle">Reshuffle</a>
-      <a href="#draw">Draw cards</a>
-    </nav></aside>
+    <!-- <main class="card-deck"> -->
+    <!--   <section id="new" class="card"> -->
+    <!--     <form> -->
+    <!--       <ul> -->
+    <!--         <li><input name="cardname" value="Harry"></li> -->
+    <!--         <li><input name="cardname" value="Hermine"></li> -->
+    <!--         <li><input name="cardname" value="Ron"></li> -->
+    <!---->
+    <!--         <li><input name="cardname" autofocus></li> -->
+    <!--       </ul> -->
+    <!--       <input type="submit"> -->
+    <!--       <input type="reset"> -->
+    <!--     </form> -->
+    <!--   </section> -->
+    <!-- </main> -->
   </body>
 </html>
