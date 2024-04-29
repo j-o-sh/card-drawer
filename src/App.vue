@@ -1,4 +1,7 @@
 <script setup>
+import { computed, onMounted, reactive, ref } from 'vue';
+
+const names = ['John', 'Jim', 'James', 'Josh', 'Jesse', 'Jackob']
 </script>
 
 <template>
@@ -8,8 +11,9 @@
     Simple ✌️ 
   </p>
   <main class="card-deck">
-    <Card is="section">Test the <i class="fa fa-book" /> test</Card>
-    <Menu class="vertical-menu"/>
+    <Card is="section" @click="drawCard" backside>
+    </Card>
+    <!-- <Menu class="vertical-menu"/> -->
   </main>
 </template>
 
@@ -22,6 +26,10 @@ h1, p {
   display: flex;
   justify-content: center;
   gap: .5em;
+  padding: 2em;
+  & * {
+    font-size: 2.5em;
+  }
 }
 .vertical-menu {
   margin-top: 1em;

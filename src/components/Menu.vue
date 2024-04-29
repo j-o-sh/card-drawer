@@ -16,7 +16,7 @@
       <span>Reshuffle</span>
     </a>
     <a href="#draw">
-      <i class="fa fa-forward"/>
+      <i class="fa fa-hand"/>
       <span>Draw cards</span>
     </a>
   </nav>
