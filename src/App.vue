@@ -1,10 +1,10 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive } from 'vue';
 
-const names = ['John', 'Jim', 'James', 'Josh', 'Jesse', 'Jackob']
+let names = []
 
 const x = reactive({
-  deck: [...names],
+  deck: [],
   skew: [],
   drawn: [],
   status: 'done',
@@ -28,6 +28,12 @@ const x = reactive({
   skewAt(index) {
     return this.skew[index] || 0
   }
+})
+
+onMounted(() => {
+  names = location.search
+    .substring(1)
+    .split('&')
 })
 </script>
 
