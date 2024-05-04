@@ -7,7 +7,7 @@ const x = reactive({
   deck: [],
   skew: [],
   drawn: [],
-  status: 'done',
+  mode: 'play',
 
   reshuffle() {
     this.drawn = []
@@ -52,8 +52,18 @@ onMounted(() => {
       :style="`--skew-angle: ${x.skewAt(i)}deg;`"
     >{{ card }}</Card>
     <Card v-else backside @click="() => x.reshuffle()"/>
-    <!-- <Menu class="vertical-menu"/> -->
   </main>
+  <aside>
+    <Toggle 
+      v-model="x.mode" 
+      :states="[ 
+        ['play', { icon: 'fa-dice' }], 
+        ['foo', { icon: 'fa-book' }], 
+        ['foobar', { icon: 'fa-house' }], 
+        ['edit', { icon: 'fa-pencil' }] 
+      ]"
+    />
+  </aside>
 </template>
 
 <style scoped>
