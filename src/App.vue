@@ -43,53 +43,42 @@ onMounted(() => {
     Create a random stack of cards, shuffle it and draw from the deck. 
     Simple ✌️ 
   </p>
-  <main class="card-deck">
-    <Card 
-      v-if="x.drawn.length"
-      v-for="card, i in x.drawn"
-      is="section" 
-      @click="() => x.draw()" 
-      :style="`--skew-angle: ${x.skewAt(i)}deg;`"
-    >{{ card }}</Card>
-    <Card v-else backside @click="() => x.reshuffle()"/>
-  </main>
-  <aside>
+  <main>
+    <div class="card-deck">
+      <Card 
+        v-if="x.drawn.length"
+        v-for="card, i in x.drawn"
+        is="section" 
+        @click="() => x.draw()" 
+        :style="`--skew-angle: ${x.skewAt(i)}deg;`"
+      >{{ card }}</Card>
+      <Card v-else backside @click="() => x.reshuffle()"/>
+    </div>
     <Toggle 
+      class="toggle"
       v-model="x.mode" 
       :states="[ 
         ['play', { icon: 'fa-dice' }], 
-        ['foo', { icon: 'fa-book' }], 
-        ['foobar', { icon: 'fa-house' }], 
         ['edit', { icon: 'fa-pencil' }] 
       ]"
     />
-  </aside>
+  </main>
 </template>
 
 <style scoped>
 h1, p {
   text-align: center;
-  margin: 1em auto;
+  margin: 1rem auto;
 }
-.card-deck {
+.card-deck, main {
   display: flex;
   position: relative;
   justify-content: center;
   gap: .5em;
-  padding: 2em;
-
-  & > * {
-    font-size: 2.5em;
-    position: absolute;
-    border: 2px solid var(--ctp-base);
-
-    transform: rotate(var(--skew-angle));
-  }
 }
-.vertical-menu {
-  margin-top: 1em;
-  flex-direction: column;
-  margin-right: -2.5em;
-  width: 2em;
+.toggle {
+  width: 1em;
+  margin-right: -1.5em;
+  align-self: end;
 }
 </style>
