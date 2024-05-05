@@ -24,7 +24,7 @@ function update(e) {
   </form>
 </template>
 
-<style>
+<style scoped>
 input,
 label:not(
   label:has(input:checked) + label,

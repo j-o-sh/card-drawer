@@ -1,9 +1,8 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
-
-let names = []
+import { onMounted, reactive, watch } from 'vue';
 
 const x = reactive({
+  names: [],
   deck: [],
   skew: [],
   drawn: [],
@@ -11,7 +10,7 @@ const x = reactive({
 
   reshuffle() {
     this.drawn = []
-    this.deck = names.toSorted(() => Math.random() - .5)
+    this.deck = this.names.toSorted(() => Math.random() - .5)
     this.skew = [...this.deck].map(() => Math.random() * 10 - 5)
     this.draw()
   },
@@ -31,9 +30,16 @@ const x = reactive({
 })
 
 onMounted(() => {
-  names = location.search
+  x.names = location.search
     .substring(1)
     .split('&')
+})
+
+watch(x, ({ names }) => { 
+  const nextsearch = '?' + names.join('&')
+  if (location.search !== nextsearch) {
+    history.replaceState({}, undefined, nextsearch)
+  }
 })
 </script>
 
@@ -44,7 +50,7 @@ onMounted(() => {
     Simple ✌️ 
   </p>
   <main>
-    <div class="card-deck">
+    <div class="card-deck" v-if="x.mode === 'play'">
       <Card 
         v-if="x.drawn.length"
         v-for="card, i in x.drawn"
@@ -54,6 +60,9 @@ onMounted(() => {
       >{{ card }}</Card>
       <Card v-else backside @click="() => x.reshuffle()"/>
     </div>
+
+    <Editor v-model="x.names" class="card-deck" v-else-if="x.mode === 'edit'" />
+
     <Toggle 
       class="toggle"
       v-model="x.mode" 
@@ -76,6 +85,7 @@ h1, p {
   justify-content: center;
   gap: .5em;
 }
+.card-deck > :not(:first-child) { position: absolute; }
 .toggle {
   width: 1em;
   margin-right: -1.5em;
