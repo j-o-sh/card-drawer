@@ -13,9 +13,12 @@ const props = defineProps({
 
 <style scoped>
 .card {
+  --card-height: min(410px, 65vh);
+
+  font-size: 2rem;
+
   border: 2px solid var(--ctp-base);
   transform: rotate(var(--skew-angle));
-  --card-height: min(410px, 65vh);
   box-sizing: border-box;
   height: var(--card-height);
 

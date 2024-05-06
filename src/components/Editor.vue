@@ -23,3 +23,16 @@ function onchange({ target }) {
     <label><input name="new" value="" @change="onchange"></label>
   </form></Card>
 </template>
+
+<style scoped>
+input {
+  font: inherit;
+  font-size: 1.25rem;
+  background: none;
+  font-family: Caveat;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--ctp-surface2);
+
+}
+</style>
