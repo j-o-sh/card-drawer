@@ -33,6 +33,8 @@ onMounted(() => {
   x.names = location.search
     .substring(1)
     .split('&')
+    .filter(n => n.trim() !== '')
+  if (!x.names.length) x.mode = 'edit'
 })
 
 watch(x, ({ names }) => { 
@@ -46,7 +48,7 @@ watch(x, ({ names }) => {
 <template>
   <h1>Card Shuffler</h1>
   <p>
-    Create a random stack of cards, shuffle it and draw from the deck. 
+    Create a stack of cards, shuffle it and draw from the deck. 
     Simple ✌️ 
   </p>
   <main>
@@ -58,10 +60,17 @@ watch(x, ({ names }) => {
         @click="() => x.draw()" 
         :style="`--skew-angle: ${x.skewAt(i)}deg;`"
       >{{ card }}</Card>
-      <Card v-else backside @click="() => x.reshuffle()"/>
+      <Card v-else backside>
+        <i class="fa fa-dice"></i>
+      </Card>
     </div>
 
-    <Editor v-model="x.names" class="card-deck" v-else-if="x.mode === 'edit'" />
+    <Editor 
+      v-model="x.names"
+      class="card-deck" 
+      v-else-if="x.mode === 'edit'"
+      @submit="x.mode = 'play'"
+    />
 
     <Toggle 
       class="toggle"

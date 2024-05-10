@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <component :is="$attrs.is || 'div'" class="card">
-    <div class="backside" v-if="props.backside"></div>
+    <div class="backside" v-if="props.backside"><slot /></div>
     <slot v-else />
   </component>
 </template>
@@ -46,5 +46,11 @@ const props = defineProps({
   flex: 1;
   border-radius: calc(var(--card-height) / 15);
   background: rgba(0, 0, 0, .2);
+
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>
