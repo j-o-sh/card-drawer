@@ -47,10 +47,6 @@ watch(x, ({ names }) => {
 
 <template>
   <h1>Card Shuffler</h1>
-  <p>
-    Create a stack of cards, shuffle it and draw from the deck. 
-    Simple ✌️ 
-  </p>
   <main>
     <div class="card-deck" v-if="x.mode === 'play'">
       <Card 
@@ -66,16 +62,21 @@ watch(x, ({ names }) => {
         corner-end="pencil" 
         @click="() => x.reshuffle()"
         @cornerEnd="() => x.mode = 'edit'">
+        <p class="explainer">Draw a card
         <i class="fa fa-dice single-card-icon"></i>
+        </p>
       </Card>
     </div>
 
     <Editor 
       v-model="x.names"
-      class="card-deck" 
+      class="card-deck editor" 
       v-else-if="x.mode === 'edit'"
       @submit="x.mode = 'play'"
-    />
+    ><p class="explainer">
+    Create a stack of cards, shuffle it and draw from the deck. 
+    Simple ✌️ 
+  </p></Editor>
   </main>
 </template>
 
@@ -91,6 +92,21 @@ h1, p {
   gap: .5em;
 }
 .card-deck > :not(:first-child) { position: absolute; }
+
+.explainer {
+  font-family: Caveat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* .editor .explainer { */
+/*   position: absolute; */
+/*   top: 1rem; */
+/*   padding: 1rem; */
+/* } */
 
 .single-card-icon {
   font-size: 2.5rem;

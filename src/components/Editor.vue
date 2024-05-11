@@ -38,6 +38,7 @@ function intoView(e) {
 <template>
   <Card class="form-card">
     <form class="scribble" @submit.prevent="" @reset="reset">
+    <slot />
     <label v-for="name, i in model">
       <input :name="i" :value="name" @change="onchange" @focus="intoView">
     </label>
@@ -116,6 +117,7 @@ form {
   padding: 1rem;
   --card-color: var(--ctp-lavender);
   background-color: var(--card-color);
+  font-size: 1rem;
 }
 
 .controls {

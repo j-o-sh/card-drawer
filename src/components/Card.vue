@@ -51,7 +51,7 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
 
 <style scoped>
 .card {
-  --card-height: min(410px, 65vh);
+  --card-height: clamp(410px, 80vh, 666px);
 
   font-size: 2rem;
 
@@ -125,7 +125,7 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
   & > * {
     background: var(--ctp-surface0);
     color: var(--ctp-text);
-    padding: .5rem;
+    padding: calc(var(--card-height) / 45);
     font-size: .8rem;
     border: none;
 
