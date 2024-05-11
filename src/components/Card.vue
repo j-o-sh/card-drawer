@@ -39,7 +39,7 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
 
 <style scoped>
 .card {
-  --card-height: clamp(410px, 80vh, 666px);
+  --card-height: clamp(410px, 75vh, 666px);
 
   font-size: 2rem;
 

@@ -9,7 +9,6 @@ const x = reactive({
   mode: 'play',
 
   play() {
-    console.log('👮 play!')
     this.drawn = []
     this.mode = 'play'
   },
@@ -22,7 +21,6 @@ const x = reactive({
   },
 
   draw() {
-    console.log('🥳')
     const next = this.deck.pop()
     if (next) {
       this.drawn.push(next)
@@ -41,6 +39,7 @@ onMounted(() => {
     .substring(1)
     .split('&')
     .filter(n => n.trim() !== '')
+    .map(decodeURIComponent)
   if (!x.names.length) x.mode = 'edit'
 })
 
@@ -66,7 +65,7 @@ watch(x, ({ names }) => {
         @cornerEnd="() => x.mode = 'edit'"
         @click="() => x.draw()" 
         :style="`--skew-angle: ${x.skewAt(i)}deg;`"
-      >{{ card }}</Card>
+      ><span class="card-in-play">{{ card }}</span></Card>
       <Card 
         v-else 
         backside 
@@ -115,11 +114,11 @@ h1, p {
   margin: 1rem 2rem;
 }
 
-/* .editor .explainer { */
-/*   position: absolute; */
-/*   top: 1rem; */
-/*   padding: 1rem; */
-/* } */
+.card-in-play {
+  font-size: 1.5rem;
+  text-align: center;
+  padding: .25rem;
+}
 
 .single-card-icon {
   font-size: 2.5rem;
