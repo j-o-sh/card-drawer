@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, watch } from 'vue';
+import { computed, onMounted, reactive, watch } from 'vue';
 
 const x = reactive({
   names: [],
@@ -7,6 +7,12 @@ const x = reactive({
   skew: [],
   drawn: [],
   mode: 'play',
+
+  play() {
+    console.log('👮 play!')
+    this.drawn = []
+    this.mode = 'play'
+  },
 
   reshuffle() {
     this.drawn = []
@@ -16,6 +22,7 @@ const x = reactive({
   },
 
   draw() {
+    console.log('🥳')
     const next = this.deck.pop()
     if (next) {
       this.drawn.push(next)
@@ -50,9 +57,13 @@ watch(x, ({ names }) => {
   <main>
     <div class="card-deck" v-if="x.mode === 'play'">
       <Card 
-        v-if="x.drawn.length"
+        v-if="x.drawn?.length"
         v-for="card, i in x.drawn"
         is="section" 
+        corner-start="dice" 
+        corner-end="pencil" 
+        @cornerStart="() => x.play()"
+        @cornerEnd="() => x.mode = 'edit'"
         @click="() => x.draw()" 
         :style="`--skew-angle: ${x.skewAt(i)}deg;`"
       >{{ card }}</Card>
@@ -60,8 +71,9 @@ watch(x, ({ names }) => {
         v-else 
         backside 
         corner-end="pencil" 
+        @cornerEnd="() => x.mode = 'edit'"
         @click="() => x.reshuffle()"
-        @cornerEnd="() => x.mode = 'edit'">
+      >
         <p class="explainer">Draw a card
         <i class="fa fa-dice single-card-icon"></i>
         </p>
@@ -72,7 +84,7 @@ watch(x, ({ names }) => {
       v-model="x.names"
       class="card-deck editor" 
       v-else-if="x.mode === 'edit'"
-      @submit="x.mode = 'play'"
+      @submit="x.play()"
     ><p class="explainer">
     Create a stack of cards, shuffle it and draw from the deck. 
     Simple ✌️ 
@@ -100,6 +112,7 @@ h1, p {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin: 1rem 2rem;
 }
 
 /* .editor .explainer { */

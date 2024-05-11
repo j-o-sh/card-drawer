@@ -15,37 +15,25 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
 
 <template>
   <component :is="$attrs.is || 'div'" class="card">
-    <div class="backside" v-if="props.backside">
+    <div class="cardface" :class="{ backside: props.backside }">
       <nav class="corner-nav" v-if="hasCorners">
-        <button :disabled="!props.cornerStart" @click="() => emit('cornerStart')">
+        <button :disabled="!props.cornerStart" @click.stop="() => emit('cornerStart')">
           <i class="fa" :class="`fa-${props.cornerStart}`"></i>
         </button>
-        <button :disabled="!props.cornerEnd" @click="() => emit('cornerEnd')">
+        <button :disabled="!props.cornerEnd" @click.stop="() => emit('cornerEnd')">
           <i class="fa" :class="`fa-${props.cornerEnd}`"></i>
         </button>
       </nav>
       <slot />
       <nav class="corner-nav" v-if="hasCorners">
-        <button :disabled="!props.cornerStart" @click="() => emit('cornerStart')">
+        <button :disabled="!props.cornerStart" @click.stop="() => emit('cornerStart')">
           <i class="fa" :class="`fa-${props.cornerStart}`"></i>
         </button>
-        <button :disabled="!props.cornerEnd" @click="() => emit('cornerEnd')">
+        <button :disabled="!props.cornerEnd" @click.stop="() => emit('cornerEnd')">
           <i class="fa" :class="`fa-${props.cornerEnd}`"></i>
         </button>
       </nav>
     </div>
-    <template v-else >
-      <slot />
-      <nav class="corner-nav" v-if="hasCorners">
-        <button :disabled="!props.cornerStart" @click="() => emit('cornerStart')">
-          <i class="fa" :class="`fa-${props.cornerStart}`"></i>
-        </button>
-        <button :disabled="!props.cornerEnd" @click="() => emit('cornerEnd')">
-          <i class="fa" :class="`fa-${props.cornerEnd}`"></i>
-        </button>
-      </nav>
-    </template>
-
   </component>
 </template>
 
@@ -74,18 +62,20 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
   padding: 1em;
 }
 
-.card:has(> .backside) {
+.card:has(> .cardface) {
   align-items: stretch;
   justify-content: stretch;
+  padding: calc(var(--card-height) / 180);
+}
+.card:has(> .backside) {
   padding: calc(var(--card-height) / 80);
 }
 
-.backside {
+.cardface {
   box-sizing: border-box;
   /* border: 1px solid black; */
   flex: 1;
   border-radius: calc(var(--card-height) / 15);
-  background: rgba(0, 0, 0, .2);
 
   font-size: 1rem;
   display: flex;
@@ -96,7 +86,15 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
   overflow: hidden;
 }
 
-:where(.card, .backside) > *:has(+.corner-nav) {
+.backside {
+  background: rgba(0, 0, 0, .2);
+}
+
+.cardface:has(> .corner-nav) {
+  justify-content: space-between;
+}
+
+.cardface > *:not(.corner-nav) {
   flex: 1;
   display: inline-flex;
   align-items: center;
@@ -107,6 +105,7 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
   align-self: stretch;
   display: inline-flex;
   justify-content: space-between;
+  flex: 0;
 
   &:first-child {
     margin-bottom: -2rem;
@@ -123,8 +122,8 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
   }
 
   & > * {
-    background: var(--ctp-surface0);
-    color: var(--ctp-text);
+    background: none;
+    color: var(--ctp-subtext2);
     padding: calc(var(--card-height) / 45);
     font-size: .8rem;
     border: none;
@@ -136,5 +135,10 @@ const hasCorners = computed(() => [props.cornerStart, props.cornerEnd]
     }
   }
 
+}
+
+.backside .corner-nav > * {
+    background: var(--ctp-surface0);
+    color: var(--ctp-text);
 }
 </style>

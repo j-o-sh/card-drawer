@@ -111,6 +111,9 @@ form {
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-card {
@@ -123,6 +126,8 @@ form {
 .controls {
   display: flex;
   gap: .5rem;
+  align-self: stretch;
+  padding: .5rem;
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
