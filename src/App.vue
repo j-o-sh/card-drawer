@@ -60,8 +60,13 @@ watch(x, ({ names }) => {
         @click="() => x.draw()" 
         :style="`--skew-angle: ${x.skewAt(i)}deg;`"
       >{{ card }}</Card>
-      <Card v-else backside>
-        <i class="fa fa-dice"></i>
+      <Card 
+        v-else 
+        backside 
+        corner-end="pencil" 
+        @click="() => x.reshuffle()"
+        @cornerEnd="() => x.mode = 'edit'">
+        <i class="fa fa-dice single-card-icon"></i>
       </Card>
     </div>
 
@@ -70,15 +75,6 @@ watch(x, ({ names }) => {
       class="card-deck" 
       v-else-if="x.mode === 'edit'"
       @submit="x.mode = 'play'"
-    />
-
-    <Toggle 
-      class="toggle"
-      v-model="x.mode" 
-      :states="[ 
-        ['play', { icon: 'fa-dice' }], 
-        ['edit', { icon: 'fa-pencil' }] 
-      ]"
     />
   </main>
 </template>
@@ -95,9 +91,8 @@ h1, p {
   gap: .5em;
 }
 .card-deck > :not(:first-child) { position: absolute; }
-.toggle {
-  width: 1em;
-  margin-right: -1.5em;
-  align-self: end;
+
+.single-card-icon {
+  font-size: 2.5rem;
 }
 </style>
